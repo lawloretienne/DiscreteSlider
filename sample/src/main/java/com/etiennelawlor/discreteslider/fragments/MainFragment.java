@@ -3,6 +3,7 @@ package com.etiennelawlor.discreteslider.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Dynamically update attributes
 //        discreteSlider.setTickMarkCount(10);
 //        discreteSlider.setTickMarkRadius(16);
 //        discreteSlider.setHorizontalBarThickness(18);
@@ -63,6 +65,14 @@ public class MainFragment extends Fragment {
 //        discreteSlider.setBackdropStrokeWidth(6);
 //        discreteSlider.setThumb(getResources().getDrawable(android.R.drawable.ic_notification_clear_all));
 //        discreteSlider.setProgressDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
+
+        // Detect when slider position changes
+        discreteSlider.setOnDiscreteSliderChangeListener(new DiscreteSlider.OnDiscreteSliderChangeListener() {
+            @Override
+            public void onPositionChanged(int position) {
+//                Log.d("MainFragment", "onPositionChanged() called with: position = [" + position + "]");
+            }
+        });
     }
 
     @Override

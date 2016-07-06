@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 
 import com.etiennelawlor.discreteslider.library.R;
 import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
@@ -31,6 +32,13 @@ public class DiscreteSlider extends FrameLayout {
     private int backdropStrokeWidth;
     private Drawable thumb;
     private Drawable progressDrawable;
+    private OnDiscreteSliderChangeListener onDiscreteSliderChangeListener;
+    // endregion
+
+    // region Interfaces
+    public interface OnDiscreteSliderChangeListener {
+        void onPositionChanged(int position);
+    }
     // endregion
 
     // region Constructors
@@ -85,6 +93,15 @@ public class DiscreteSlider extends FrameLayout {
             discreteSeekBar.setThumb(thumb);
         if(progressDrawable != null)
             discreteSeekBar.setProgressDrawable(progressDrawable);
+
+        discreteSeekBar.setOnDiscreteSeekBarChangeListener(new DiscreteSeekBar.OnDiscreteSeekBarChangeListener() {
+            @Override
+            public void onPositionChanged(int position) {
+                if(onDiscreteSliderChangeListener != null){
+                    onDiscreteSliderChangeListener.onPositionChanged(position);
+                }
+            }
+        });
     }
 
     public void setTickMarkCount(int tickMarkCount){
@@ -119,5 +136,12 @@ public class DiscreteSlider extends FrameLayout {
     public void setProgressDrawable(Drawable progressDrawable){
         discreteSeekBar.setProgressDrawable(progressDrawable);
     }
+
+    public void setOnDiscreteSliderChangeListener(OnDiscreteSliderChangeListener onDiscreteSliderChangeListener) {
+        this.onDiscreteSliderChangeListener = onDiscreteSliderChangeListener;
+    }
+    // endregion
+
+    // region Interfaces
     // endregion
 }

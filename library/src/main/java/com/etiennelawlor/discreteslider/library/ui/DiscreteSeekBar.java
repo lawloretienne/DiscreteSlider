@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.SeekBar;
 
@@ -15,6 +16,7 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
 
     // region Constants
     private static String PROGRESS_PROPERTY = "progress";
+    private static int MULTIPLIER = 100;
     // endregion
 
     // region Member Variables
@@ -25,6 +27,13 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
     // If this counter exceeds 1 then the user dragged the SeekBar otherwise
     // the user clicked the SeekBar
     private int fromUserCount = 0;
+    private OnDiscreteSeekBarChangeListener onDiscreteSeekBarChangeListener;
+    // endregion
+
+    // region Interfaces
+    public interface OnDiscreteSeekBarChangeListener {
+        void onPositionChanged(int position);
+    }
     // endregion
 
     // region Constructors
@@ -81,14 +90,23 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
                 }
 
                 fromUserCount = 0;
+                if(onDiscreteSeekBarChangeListener != null){
+                    onDiscreteSeekBarChangeListener.onPositionChanged(newProgress/MULTIPLIER);
+                }
             }
         });
     }
 
     public void setTickMarkCount(int tickMarkCount) {
         this.tickMarkCount = tickMarkCount < 2 ? 2 : tickMarkCount;
-        setMax((this.tickMarkCount-1) * 100);
+        setMax((this.tickMarkCount-1) * MULTIPLIER);
         this.stepSize = getMax()/(this.tickMarkCount-1);
     }
+
+    public void setOnDiscreteSeekBarChangeListener(OnDiscreteSeekBarChangeListener onDiscreteSeekBarChangeListener){
+        this.onDiscreteSeekBarChangeListener = onDiscreteSeekBarChangeListener;
+    }
     // endregion
+
+
 }
