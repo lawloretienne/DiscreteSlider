@@ -43,14 +43,14 @@ A slider that allows a user to select a value at one of the specified tickmarks
 
 ### XML Attributes
 
-* backdropFillColor - the fill color of the slider backdrop
-* backdropStrokeColor - the stroke color of the slider backdrop
-* backdropStrokeWidth - the width of the stroke on the slider backdrop
-* horizontalBarThickness - the thickness of the horizontal bar that makes up the slider backdrop
-* tickMarkCount - the number of tickmarks
-* tickMarkRadius - the radius of each tickmark
-* thumb - the drawable that is used as the thumb of the slider
-* progressDrawable - the drawable that is used as the progress indicator of the slider
+* **backdropFillColor** - the fill color of the slider backdrop
+* **backdropStrokeColor** - the stroke color of the slider backdrop
+* **backdropStrokeWidth** - the width of the stroke on the slider backdrop
+* **horizontalBarThickness** - the thickness of the horizontal bar that makes up the slider backdrop
+* **tickMarkCount** - the number of tickmarks
+* **tickMarkRadius** - the radius of each tickmark
+* **thumb** - the drawable that is used as the thumb of the slider
+* **progressDrawable** - the drawable that is used as the progress indicator of the slider
 
 ## Developed By
 
