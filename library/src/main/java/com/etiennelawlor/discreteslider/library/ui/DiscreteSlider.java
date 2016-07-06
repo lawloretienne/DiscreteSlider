@@ -17,6 +17,11 @@ import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
 
 public class DiscreteSlider extends FrameLayout {
 
+    // region Views
+    private DiscreteSliderBackdrop discreteSliderBackdrop;
+    private DiscreteSeekBar discreteSeekBar;
+    // endregion
+
     // region Member Variables
     private int tickMarkCount;
     private int tickMarkRadius;
@@ -65,7 +70,7 @@ public class DiscreteSlider extends FrameLayout {
         }
 
         View view = inflate(context, R.layout.discrete_slider, this);
-        DiscreteSliderBackdrop discreteSliderBackdrop = (DiscreteSliderBackdrop)view.findViewById(R.id.discrete_slider_backdrop);
+        discreteSliderBackdrop = (DiscreteSliderBackdrop)view.findViewById(R.id.discrete_slider_backdrop);
         discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
         discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
@@ -73,13 +78,46 @@ public class DiscreteSlider extends FrameLayout {
         discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
         discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
 
-        DiscreteSeekBar discreteSeekBar = (DiscreteSeekBar)view.findViewById(R.id.discrete_seek_bar);
+        discreteSeekBar = (DiscreteSeekBar)view.findViewById(R.id.discrete_seek_bar);
         discreteSeekBar.setTickMarkCount(tickMarkCount);
         discreteSeekBar.setPadding(DisplayUtility.dp2px(getContext(), 32),0,DisplayUtility.dp2px(getContext(), 32),0);
         if(thumb != null)
             discreteSeekBar.setThumb(thumb);
         if(progressDrawable != null)
             discreteSeekBar.setProgressDrawable(progressDrawable);
+    }
+
+    public void setTickMarkCount(int tickMarkCount){
+        discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
+        discreteSeekBar.setTickMarkCount(tickMarkCount);
+    }
+
+    public void setTickMarkRadius(int tickMarkRadius){
+        discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
+    }
+
+    public void setHorizontalBarThickness(int horizontalBarThickness){
+        discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
+    }
+
+    public void setBackdropFillColor(int backdropFillColor){
+        discreteSliderBackdrop.setBackdropFillColor(backdropFillColor);
+    }
+
+    public void setBackdropStrokeColor(int backdropStrokeColor){
+        discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
+    }
+
+    public void setBackdropStrokeWidth(int backdropStrokeWidth){
+        discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
+    }
+
+    public void setThumb(Drawable thumb){
+        discreteSeekBar.setThumb(thumb);
+    }
+
+    public void setProgressDrawable(Drawable progressDrawable){
+        discreteSeekBar.setProgressDrawable(progressDrawable);
     }
     // endregion
 }

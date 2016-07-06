@@ -1,16 +1,16 @@
 package com.etiennelawlor.discreteslider.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.etiennelawlor.discreteslider.R;
+import com.etiennelawlor.discreteslider.library.ui.DiscreteSlider;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -18,6 +18,11 @@ import butterknife.ButterKnife;
  */
 
 public class MainFragment extends Fragment {
+
+    // region Views
+    @Bind(R.id.discrete_slider)
+    DiscreteSlider discreteSlider;
+    // endregion
 
     // region Constructors
     public MainFragment() {
@@ -44,6 +49,20 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+//        discreteSlider.setTickMarkCount(10);
+//        discreteSlider.setTickMarkRadius(16);
+//        discreteSlider.setHorizontalBarThickness(18);
+//        discreteSlider.setBackdropFillColor(getResources().getColor(R.color.purple_500));
+//        discreteSlider.setBackdropStrokeColor(getResources().getColor(R.color.orange_300));
+//        discreteSlider.setBackdropStrokeWidth(6);
+//        discreteSlider.setThumb(getResources().getDrawable(android.R.drawable.ic_notification_clear_all));
+//        discreteSlider.setProgressDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
     }
 
     @Override

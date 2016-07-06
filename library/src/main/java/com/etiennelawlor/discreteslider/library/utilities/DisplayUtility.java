@@ -1,14 +1,9 @@
 package com.etiennelawlor.discreteslider.library.utilities;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by etiennelawlor on 12/19/15.

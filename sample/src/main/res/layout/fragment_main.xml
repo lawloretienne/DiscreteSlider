@@ -7,6 +7,7 @@
     android:background="@color/grey_500">
 
     <com.etiennelawlor.discreteslider.library.ui.DiscreteSlider
+        android:id="@+id/discrete_slider"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:paddingLeft="8dp"
