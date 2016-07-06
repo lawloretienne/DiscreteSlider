@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_500">
+
+    <com.etiennelawlor.discreteslider.library.ui.DiscreteSlider
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_gravity="bottom"
+        android:background="@color/grey_100"
+        app:backdropFillColor="@color/grey_200"
+        app:backdropStrokeColor="@color/grey_300"
+        app:backdropStrokeWidth="1"
+        app:horizontalBarThickness="4"
+        app:tickMarkCount="6"
+        app:tickMarkRadius="8"
+        app:thumb="@drawable/thumb"
+        app:progressDrawable="@drawable/transparent_progress_drawable"/>
+
+</FrameLayout>
