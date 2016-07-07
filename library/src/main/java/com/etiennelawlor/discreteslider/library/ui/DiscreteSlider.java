@@ -140,6 +140,15 @@ public class DiscreteSlider extends FrameLayout {
     public void setOnDiscreteSliderChangeListener(OnDiscreteSliderChangeListener onDiscreteSliderChangeListener) {
         this.onDiscreteSliderChangeListener = onDiscreteSliderChangeListener;
     }
+
+    public int getTickMarkCount() {
+        return tickMarkCount;
+    }
+
+    public int getTickMarkRadius() {
+        return tickMarkRadius;
+    }
+
     // endregion
 
     // region Interfaces

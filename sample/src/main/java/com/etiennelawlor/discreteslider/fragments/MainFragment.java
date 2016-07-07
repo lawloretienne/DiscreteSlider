@@ -3,13 +3,18 @@ package com.etiennelawlor.discreteslider.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.etiennelawlor.discreteslider.R;
 import com.etiennelawlor.discreteslider.library.ui.DiscreteSlider;
+import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +28,8 @@ public class MainFragment extends Fragment {
     // region Views
     @Bind(R.id.discrete_slider)
     DiscreteSlider discreteSlider;
+    @Bind(R.id.tick_mark_labels_rl)
+    RelativeLayout tickMarkLabelsRelativeLayout;
     // endregion
 
     // region Constructors
@@ -70,7 +77,23 @@ public class MainFragment extends Fragment {
         discreteSlider.setOnDiscreteSliderChangeListener(new DiscreteSlider.OnDiscreteSliderChangeListener() {
             @Override
             public void onPositionChanged(int position) {
-//                Log.d("MainFragment", "onPositionChanged() called with: position = [" + position + "]");
+                int childCount = tickMarkLabelsRelativeLayout.getChildCount();
+                for(int i= 0; i<childCount; i++){
+                    TextView tv = (TextView) tickMarkLabelsRelativeLayout.getChildAt(i);
+                    if(i == position)
+                        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    else
+                        tv.setTextColor(getResources().getColor(R.color.grey_400));
+                }
+            }
+        });
+
+        tickMarkLabelsRelativeLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                tickMarkLabelsRelativeLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                addTickMarkTextLabels();
             }
         });
     }
@@ -79,6 +102,51 @@ public class MainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    // endregion
+
+    // region Helper Methods
+
+    private void addTickMarkTextLabels(){
+        int tickMarkCount = discreteSlider.getTickMarkCount();
+        int tickMarkRadius = discreteSlider.getTickMarkRadius();
+        int width = tickMarkLabelsRelativeLayout.getMeasuredWidth();
+
+        int discreteSliderBackdropLeftMargin = DisplayUtility.dp2px(getContext(), 32);
+        int discreteSliderBackdropRightMargin = DisplayUtility.dp2px(getContext(), 32);
+        int firstTickMarkRadius = DisplayUtility.dp2px(getContext(), tickMarkRadius);
+        int lastTickMarkRadius = DisplayUtility.dp2px(getContext(), tickMarkRadius);
+        int interval = (width - (discreteSliderBackdropLeftMargin+discreteSliderBackdropRightMargin) - (firstTickMarkRadius+lastTickMarkRadius) )
+                / (tickMarkCount-1);
+
+        String[] tickMarkLabels = {"$", "$$", "$$$", "$$$$", "$$$$$"};
+        int tickMarkLabelWidth = DisplayUtility.dp2px(getContext(), 40);
+
+        for(int i=0; i<tickMarkCount; i++) {
+            TextView tv = new TextView(getContext());
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    tickMarkLabelWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            tv.setText(tickMarkLabels[i]);
+            tv.setGravity(Gravity.CENTER);
+            if(i==0)
+                tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+            else
+                tv.setTextColor(getResources().getColor(R.color.grey_400));
+
+//                    tv.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+
+            int left = discreteSliderBackdropLeftMargin + firstTickMarkRadius + (i * interval) - (tickMarkLabelWidth/2);
+
+            layoutParams.setMargins(left,
+                    0,
+                    0,
+                    0);
+            tv.setLayoutParams(layoutParams);
+
+            tickMarkLabelsRelativeLayout.addView(tv);
+        }
     }
     // endregion
 }
