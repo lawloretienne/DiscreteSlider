@@ -125,8 +125,8 @@ public class MainFragment extends Fragment {
         for(int i=0; i<tickMarkCount; i++) {
             TextView tv = new TextView(getContext());
 
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    tickMarkLabelWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                    tickMarkLabelWidth, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             tv.setText(tickMarkLabels[i]);
             tv.setGravity(Gravity.CENTER);
