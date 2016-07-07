@@ -109,14 +109,14 @@ public class MainFragment extends Fragment {
 
     private void addTickMarkTextLabels(){
         int tickMarkCount = discreteSlider.getTickMarkCount();
-        int tickMarkRadius = discreteSlider.getTickMarkRadius();
+        float tickMarkRadius = discreteSlider.getTickMarkRadius();
         int width = tickMarkLabelsRelativeLayout.getMeasuredWidth();
 
         int discreteSliderBackdropLeftMargin = DisplayUtility.dp2px(getContext(), 32);
         int discreteSliderBackdropRightMargin = DisplayUtility.dp2px(getContext(), 32);
-        int firstTickMarkRadius = DisplayUtility.dp2px(getContext(), tickMarkRadius);
-        int lastTickMarkRadius = DisplayUtility.dp2px(getContext(), tickMarkRadius);
-        int interval = (width - (discreteSliderBackdropLeftMargin+discreteSliderBackdropRightMargin) - (firstTickMarkRadius+lastTickMarkRadius) )
+        float firstTickMarkRadius = tickMarkRadius;
+        float lastTickMarkRadius = tickMarkRadius;
+        int interval = (width - (discreteSliderBackdropLeftMargin+discreteSliderBackdropRightMargin) - ((int)(firstTickMarkRadius+lastTickMarkRadius)) )
                 / (tickMarkCount-1);
 
         String[] tickMarkLabels = {"$", "$$", "$$$", "$$$$", "$$$$$"};
@@ -137,7 +137,7 @@ public class MainFragment extends Fragment {
 
 //                    tv.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
 
-            int left = discreteSliderBackdropLeftMargin + firstTickMarkRadius + (i * interval) - (tickMarkLabelWidth/2);
+            int left = discreteSliderBackdropLeftMargin + (int)firstTickMarkRadius + (i * interval) - (tickMarkLabelWidth/2);
 
             layoutParams.setMargins(left,
                     0,

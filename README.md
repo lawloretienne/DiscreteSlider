@@ -31,10 +31,10 @@ A slider that allows a user to select a value at one of the specified tickmarks
         android:background="@color/grey_100"
         app:backdropFillColor="@color/grey_200"
         app:backdropStrokeColor="@color/grey_300"
-        app:backdropStrokeWidth="1"
-        app:horizontalBarThickness="4"
+        app:backdropStrokeWidth="1dp"
+        app:horizontalBarThickness="4dp"
         app:tickMarkCount="6"
-        app:tickMarkRadius="8"
+        app:tickMarkRadius="8dp"
         app:thumb="@drawable/thumb"
         app:progressDrawable="@drawable/transparent_progress_drawable"/>
 ```
@@ -45,10 +45,10 @@ A slider that allows a user to select a value at one of the specified tickmarks
 
 * **backdropFillColor** - the fill color of the slider backdrop
 * **backdropStrokeColor** - the stroke color of the slider backdrop
-* **backdropStrokeWidth** - the width of the stroke on the slider backdrop (in dp)
-* **horizontalBarThickness** - the thickness of the horizontal bar that makes up the slider backdrop (in dp)
+* **backdropStrokeWidth** - the width of the stroke on the slider backdrop
+* **horizontalBarThickness** - the thickness of the horizontal bar that makes up the slider backdrop
 * **tickMarkCount** - the number of tickmarks
-* **tickMarkRadius** - the radius of each tickmark (in dp)
+* **tickMarkRadius** - the radius of each tickmark
 * **thumb** - the drawable that is used as the thumb of the slider
 * **progressDrawable** - the drawable that is used as the progress indicator of the slider
 

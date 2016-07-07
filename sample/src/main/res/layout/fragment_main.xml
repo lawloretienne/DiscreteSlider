@@ -29,10 +29,10 @@
             android:background="@color/grey_100"
             app:backdropFillColor="@color/grey_200"
             app:backdropStrokeColor="@color/grey_300"
-            app:backdropStrokeWidth="1"
-            app:horizontalBarThickness="4"
+            app:backdropStrokeWidth="1dp"
+            app:horizontalBarThickness="4dp"
             app:tickMarkCount="5"
-            app:tickMarkRadius="8"
+            app:tickMarkRadius="8dp"
             app:thumb="@drawable/thumb"
             app:progressDrawable="@drawable/transparent_progress_drawable"/>
 

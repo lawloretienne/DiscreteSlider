@@ -2,11 +2,11 @@
 <resources>
     <declare-styleable name="DiscreteSlider">
         <attr name="tickMarkCount" format="integer" />
-        <attr name="tickMarkRadius" format="integer" />
-        <attr name="horizontalBarThickness" format="integer" />
+        <attr name="tickMarkRadius" format="dimension" />
+        <attr name="horizontalBarThickness" format="dimension" />
         <attr name="backdropFillColor" format="color" />
         <attr name="backdropStrokeColor" format="color" />
-        <attr name="backdropStrokeWidth" format="integer" />
+        <attr name="backdropStrokeWidth" format="dimension" />
         <attr name="thumb" format="reference" />
         <attr name="progressDrawable" format="reference" />
     </declare-styleable>

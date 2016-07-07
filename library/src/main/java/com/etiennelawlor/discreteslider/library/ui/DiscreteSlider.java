@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.SeekBar;
 
 import com.etiennelawlor.discreteslider.library.R;
 import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
@@ -25,14 +24,17 @@ public class DiscreteSlider extends FrameLayout {
 
     // region Member Variables
     private int tickMarkCount;
-    private int tickMarkRadius;
-    private int horizontalBarThickness;
+    private float tickMarkRadius;
+    private float horizontalBarThickness;
     private int backdropFillColor;
     private int backdropStrokeColor;
-    private int backdropStrokeWidth;
+    private float backdropStrokeWidth;
     private Drawable thumb;
     private Drawable progressDrawable;
     private OnDiscreteSliderChangeListener onDiscreteSliderChangeListener;
+    private int discreteSeekBarLeftPadding = DisplayUtility.dp2px(getContext(), 32);
+    private int discreteSeekBarRightPadding = DisplayUtility.dp2px(getContext(), 32);
+
     // endregion
 
     // region Interfaces
@@ -66,11 +68,11 @@ public class DiscreteSlider extends FrameLayout {
 
         try {
             tickMarkCount = attributeArray.getInteger(R.styleable.DiscreteSlider_tickMarkCount, 5);
-            tickMarkRadius = attributeArray.getInteger(R.styleable.DiscreteSlider_tickMarkRadius, 8);
-            horizontalBarThickness = attributeArray.getInteger(R.styleable.DiscreteSlider_horizontalBarThickness, 4);
+            tickMarkRadius = attributeArray.getDimension(R.styleable.DiscreteSlider_tickMarkRadius, 8);
+            horizontalBarThickness = attributeArray.getDimension(R.styleable.DiscreteSlider_horizontalBarThickness, 4);
             backdropFillColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropFillColor, Color.GRAY);
             backdropStrokeColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropStrokeColor, Color.GRAY);
-            backdropStrokeWidth = attributeArray.getInteger(R.styleable.DiscreteSlider_backdropStrokeWidth, 1);
+            backdropStrokeWidth = attributeArray.getDimension(R.styleable.DiscreteSlider_backdropStrokeWidth, 1);
             thumb = attributeArray.getDrawable(R.styleable.DiscreteSlider_thumb);
             progressDrawable = attributeArray.getDrawable(R.styleable.DiscreteSlider_progressDrawable);
         } finally {
@@ -88,12 +90,11 @@ public class DiscreteSlider extends FrameLayout {
 
         discreteSeekBar = (DiscreteSeekBar)view.findViewById(R.id.discrete_seek_bar);
         discreteSeekBar.setTickMarkCount(tickMarkCount);
-        discreteSeekBar.setPadding(DisplayUtility.dp2px(getContext(), 32),0,DisplayUtility.dp2px(getContext(), 32),0);
+        discreteSeekBar.setPadding(discreteSeekBarLeftPadding,0,discreteSeekBarRightPadding,0);
         if(thumb != null)
             discreteSeekBar.setThumb(thumb);
         if(progressDrawable != null)
             discreteSeekBar.setProgressDrawable(progressDrawable);
-
         discreteSeekBar.setOnDiscreteSeekBarChangeListener(new DiscreteSeekBar.OnDiscreteSeekBarChangeListener() {
             @Override
             public void onPositionChanged(int position) {
@@ -109,11 +110,11 @@ public class DiscreteSlider extends FrameLayout {
         discreteSeekBar.setTickMarkCount(tickMarkCount);
     }
 
-    public void setTickMarkRadius(int tickMarkRadius){
+    public void setTickMarkRadius(float tickMarkRadius){
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
     }
 
-    public void setHorizontalBarThickness(int horizontalBarThickness){
+    public void setHorizontalBarThickness(float horizontalBarThickness){
         discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
     }
 
@@ -125,7 +126,7 @@ public class DiscreteSlider extends FrameLayout {
         discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
     }
 
-    public void setBackdropStrokeWidth(int backdropStrokeWidth){
+    public void setBackdropStrokeWidth(float backdropStrokeWidth){
         discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
     }
 
@@ -145,12 +146,9 @@ public class DiscreteSlider extends FrameLayout {
         return tickMarkCount;
     }
 
-    public int getTickMarkRadius() {
+    public float getTickMarkRadius() {
         return tickMarkRadius;
     }
 
-    // endregion
-
-    // region Interfaces
     // endregion
 }
