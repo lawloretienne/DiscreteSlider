@@ -8,14 +8,14 @@ A slider that allows a user to select a value at one of the specified tickmarks
 
 #### Gradle
 
-`compile 'com.github.lawloretienne:discreteslider:0.0.4'`
+`compile 'com.github.lawloretienne:discreteslider:0.0.5'`
 
 #### Maven
 ```
 <dependency>
     <groupId>com.github.lawloretienne</groupId>
     <artifactId>discreteslider</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 </dependency>
 ```
 
