@@ -2,11 +2,13 @@ package com.etiennelawlor.discreteslider.library.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.etiennelawlor.discreteslider.library.R;
 import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
 
 /**
@@ -93,9 +95,9 @@ public class DiscreteSliderBackdrop extends FrameLayout {
         }
 
         canvas.drawRoundRect(new RectF(discreteSliderBackdropLeftMargin,
-                        (height/2) - ((horizontalBarThickness/2)-1),
+                        (height/2) - ((horizontalBarThickness/2)-DisplayUtility.dp2px(getContext(), 1)),
                         width - discreteSliderBackdropRightMargin,
-                        (height/2) + ((horizontalBarThickness/2)-1)),
+                        (height/2) + ((horizontalBarThickness/2)-DisplayUtility.dp2px(getContext(), 1))),
                         xRadius,
                         yRadius,
                         fillPaint);
