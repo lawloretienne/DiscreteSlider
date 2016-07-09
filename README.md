@@ -2,7 +2,7 @@
 
 A slider that allows a user to select a value at one of the specified tickmarks
 
-![DiscreteSlider](https://raw.githubusercontent.com/lawloretienne/DiscreteSlider/master/images/DiscreteSlider_Screenshot2.png)
+![DiscreteSlider](https://raw.githubusercontent.com/lawloretienne/DiscreteSlider/master/images/DiscreteSlider_Screenshot3.png)
 
 ## Setup
 
