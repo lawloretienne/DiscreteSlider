@@ -1,4 +1,4 @@
-# DiscreteSlider 
+# DiscreteSlider [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DiscreteSlider-green.svg?style=true)](https://android-arsenal.com/details/1/3871)
 
 A slider that allows a user to select a value at one of the specified tickmarks
 
