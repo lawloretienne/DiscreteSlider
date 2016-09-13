@@ -25,6 +25,7 @@ public class DiscreteSlider extends FrameLayout {
     // region Member Variables
     private int tickMarkCount;
     private float tickMarkRadius;
+    private int position;
     private float horizontalBarThickness;
     private int backdropFillColor;
     private int backdropStrokeColor;
@@ -69,6 +70,7 @@ public class DiscreteSlider extends FrameLayout {
         try {
             tickMarkCount = attributeArray.getInteger(R.styleable.DiscreteSlider_tickMarkCount, 5);
             tickMarkRadius = attributeArray.getDimension(R.styleable.DiscreteSlider_tickMarkRadius, 8);
+            position = attributeArray.getInteger(R.styleable.DiscreteSlider_position, 0);
             horizontalBarThickness = attributeArray.getDimension(R.styleable.DiscreteSlider_horizontalBarThickness, 4);
             backdropFillColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropFillColor, Color.GRAY);
             backdropStrokeColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropStrokeColor, Color.GRAY);
@@ -81,20 +83,20 @@ public class DiscreteSlider extends FrameLayout {
 
         View view = inflate(context, R.layout.discrete_slider, this);
         discreteSliderBackdrop = (DiscreteSliderBackdrop)view.findViewById(R.id.discrete_slider_backdrop);
-        discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
-        discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
-        discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
-        discreteSliderBackdrop.setBackdropFillColor(backdropFillColor);
-        discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
-        discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
-
         discreteSeekBar = (DiscreteSeekBar)view.findViewById(R.id.discrete_seek_bar);
-        discreteSeekBar.setTickMarkCount(tickMarkCount);
+
+        setTickMarkCount(tickMarkCount);
+        setTickMarkRadius(tickMarkRadius);
+        setHorizontalBarThickness(horizontalBarThickness);
+        setBackdropFillColor(backdropFillColor);
+        setBackdropStrokeColor(backdropStrokeColor);
+        setBackdropStrokeWidth(backdropStrokeWidth);
+        setPosition(position);
+        setThumb(thumb);
+        setProgressDrawable(progressDrawable);
+
         discreteSeekBar.setPadding(discreteSeekBarLeftPadding,0,discreteSeekBarRightPadding,0);
-        if(thumb != null)
-            discreteSeekBar.setThumb(thumb);
-        if(progressDrawable != null)
-            discreteSeekBar.setProgressDrawable(progressDrawable);
+
         discreteSeekBar.setOnDiscreteSeekBarChangeListener(new DiscreteSeekBar.OnDiscreteSeekBarChangeListener() {
             @Override
             public void onPositionChanged(int position) {
@@ -114,6 +116,17 @@ public class DiscreteSlider extends FrameLayout {
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
     }
 
+    public void setPosition(int position) {
+        if(position<0){
+            this.position = 0;
+        } else if(position>tickMarkCount-1){
+            this.position = tickMarkCount-1;
+        } else {
+            this.position = position;
+        }
+        discreteSeekBar.setPosition(this.position);
+    }
+
     public void setHorizontalBarThickness(float horizontalBarThickness){
         discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
     }
@@ -131,11 +144,13 @@ public class DiscreteSlider extends FrameLayout {
     }
 
     public void setThumb(Drawable thumb){
-        discreteSeekBar.setThumb(thumb);
+        if(thumb != null)
+            discreteSeekBar.setThumb(thumb);
     }
 
     public void setProgressDrawable(Drawable progressDrawable){
-        discreteSeekBar.setProgressDrawable(progressDrawable);
+        if(progressDrawable != null)
+            discreteSeekBar.setProgressDrawable(progressDrawable);
     }
 
     public void setOnDiscreteSliderChangeListener(OnDiscreteSliderChangeListener onDiscreteSliderChangeListener) {
@@ -148,6 +163,10 @@ public class DiscreteSlider extends FrameLayout {
 
     public float getTickMarkRadius() {
         return tickMarkRadius;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     // endregion

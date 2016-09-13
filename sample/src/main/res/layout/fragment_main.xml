@@ -33,6 +33,7 @@
             app:horizontalBarThickness="4dp"
             app:tickMarkCount="5"
             app:tickMarkRadius="8dp"
+            app:position="1"
             app:thumb="@drawable/thumb"
             app:progressDrawable="@drawable/transparent_progress_drawable"/>
 

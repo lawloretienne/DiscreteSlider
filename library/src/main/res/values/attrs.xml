@@ -3,6 +3,7 @@
     <declare-styleable name="DiscreteSlider">
         <attr name="tickMarkCount" format="integer" />
         <attr name="tickMarkRadius" format="dimension" />
+        <attr name="position" format="integer" />
         <attr name="horizontalBarThickness" format="dimension" />
         <attr name="backdropFillColor" format="color" />
         <attr name="backdropStrokeColor" format="color" />

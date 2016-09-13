@@ -106,6 +106,10 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
     public void setOnDiscreteSeekBarChangeListener(OnDiscreteSeekBarChangeListener onDiscreteSeekBarChangeListener){
         this.onDiscreteSeekBarChangeListener = onDiscreteSeekBarChangeListener;
     }
+
+    public void setPosition(int position){
+        this.setProgress(position*(int)stepSize);
+    }
     // endregion
 
 

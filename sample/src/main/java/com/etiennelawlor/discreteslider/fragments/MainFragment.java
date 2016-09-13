@@ -130,7 +130,7 @@ public class MainFragment extends Fragment {
 
             tv.setText(tickMarkLabels[i]);
             tv.setGravity(Gravity.CENTER);
-            if(i==0)
+            if(i==discreteSlider.getPosition())
                 tv.setTextColor(getResources().getColor(R.color.colorPrimary));
             else
                 tv.setTextColor(getResources().getColor(R.color.grey_400));
