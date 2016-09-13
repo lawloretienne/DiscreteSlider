@@ -8,14 +8,14 @@ A slider that allows a user to select a value at one of the specified tickmarks
 
 #### Gradle
 
-`compile 'com.github.lawloretienne:discreteslider:0.0.6'`
+`compile 'com.github.lawloretienne:discreteslider:0.0.7'`
 
 #### Maven
 ```
 <dependency>
     <groupId>com.github.lawloretienne</groupId>
     <artifactId>discreteslider</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
 
@@ -35,6 +35,7 @@ A slider that allows a user to select a value at one of the specified tickmarks
         app:horizontalBarThickness="4dp"
         app:tickMarkCount="6"
         app:tickMarkRadius="8dp"
+        app:position="1"
         app:thumb="@drawable/thumb"
         app:progressDrawable="@drawable/transparent_progress_drawable"/>
 ```
@@ -49,6 +50,7 @@ A slider that allows a user to select a value at one of the specified tickmarks
 * **horizontalBarThickness** - the thickness of the horizontal bar that makes up the slider backdrop
 * **tickMarkCount** - the number of tickmarks
 * **tickMarkRadius** - the radius of each tickmark
+* **position** - the position of the thumb in the slider (set to the position of the appropriate tickmark)
 * **thumb** - the drawable that is used as the thumb of the slider
 * **progressDrawable** - the drawable that is used as the progress indicator of the slider
 
