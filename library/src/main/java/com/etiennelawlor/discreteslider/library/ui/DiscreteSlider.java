@@ -62,7 +62,7 @@ public class DiscreteSlider extends FrameLayout {
     // endregion
 
     // region Helper Methods
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         TypedArray attributeArray = context.obtainStyledAttributes(
                 attrs,
                 R.styleable.DiscreteSlider);
@@ -71,6 +71,7 @@ public class DiscreteSlider extends FrameLayout {
             tickMarkCount = attributeArray.getInteger(R.styleable.DiscreteSlider_tickMarkCount, 5);
             tickMarkRadius = attributeArray.getDimension(R.styleable.DiscreteSlider_tickMarkRadius, 8);
             position = attributeArray.getInteger(R.styleable.DiscreteSlider_position, 0);
+
             horizontalBarThickness = attributeArray.getDimension(R.styleable.DiscreteSlider_horizontalBarThickness, 4);
             backdropFillColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropFillColor, Color.GRAY);
             backdropStrokeColor = attributeArray.getColor(R.styleable.DiscreteSlider_backdropStrokeColor, Color.GRAY);
@@ -82,8 +83,8 @@ public class DiscreteSlider extends FrameLayout {
         }
 
         View view = inflate(context, R.layout.discrete_slider, this);
-        discreteSliderBackdrop = (DiscreteSliderBackdrop)view.findViewById(R.id.discrete_slider_backdrop);
-        discreteSeekBar = (DiscreteSeekBar)view.findViewById(R.id.discrete_seek_bar);
+        discreteSliderBackdrop = (DiscreteSliderBackdrop) view.findViewById(R.id.discrete_slider_backdrop);
+        discreteSeekBar = (DiscreteSeekBar) view.findViewById(R.id.discrete_seek_bar);
 
         setTickMarkCount(tickMarkCount);
         setTickMarkRadius(tickMarkRadius);
@@ -95,61 +96,81 @@ public class DiscreteSlider extends FrameLayout {
         setThumb(thumb);
         setProgressDrawable(progressDrawable);
 
-        discreteSeekBar.setPadding(discreteSeekBarLeftPadding,0,discreteSeekBarRightPadding,0);
+        discreteSeekBar.setPadding(discreteSeekBarLeftPadding, 0, discreteSeekBarRightPadding, 0);
 
         discreteSeekBar.setOnDiscreteSeekBarChangeListener(new DiscreteSeekBar.OnDiscreteSeekBarChangeListener() {
             @Override
             public void onPositionChanged(int position) {
-                if(onDiscreteSliderChangeListener != null){
+                if (onDiscreteSliderChangeListener != null) {
                     onDiscreteSliderChangeListener.onPositionChanged(position);
                 }
             }
         });
     }
 
-    public void setTickMarkCount(int tickMarkCount){
+    public void setTickMarkCount(int tickMarkCount) {
         discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
         discreteSeekBar.setTickMarkCount(tickMarkCount);
     }
 
-    public void setTickMarkRadius(float tickMarkRadius){
+    public void setTickMarkRadius(float tickMarkRadius) {
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
     }
 
-    public void setPosition(int position) {
-        if(position<0){
+    private void validatePsition(int position) {
+        if (position < 0) {
             this.position = 0;
-        } else if(position>tickMarkCount-1){
-            this.position = tickMarkCount-1;
+        } else if (position > tickMarkCount - 1) {
+            this.position = tickMarkCount - 1;
         } else {
             this.position = position;
         }
-        discreteSeekBar.setPosition(this.position);
     }
 
-    public void setHorizontalBarThickness(float horizontalBarThickness){
+    public void setPosition(int position) {
+        validatePsition(position);
+        discreteSeekBar.setPosition(this.position);
+        if (onDiscreteSliderChangeListener != null) {
+            onDiscreteSliderChangeListener.onPositionChanged(position);
+        }
+    }
+
+    /**
+     * Sets the current position of mark and animate it
+     *
+     * @param position
+     */
+    public void setPositionAnimated(int position) {
+        validatePsition(position);
+        discreteSeekBar.setPositionAnimated(this.position);
+        if (onDiscreteSliderChangeListener != null) {
+            onDiscreteSliderChangeListener.onPositionChanged(position);
+        }
+    }
+
+    public void setHorizontalBarThickness(float horizontalBarThickness) {
         discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
     }
 
-    public void setBackdropFillColor(int backdropFillColor){
+    public void setBackdropFillColor(int backdropFillColor) {
         discreteSliderBackdrop.setBackdropFillColor(backdropFillColor);
     }
 
-    public void setBackdropStrokeColor(int backdropStrokeColor){
+    public void setBackdropStrokeColor(int backdropStrokeColor) {
         discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
     }
 
-    public void setBackdropStrokeWidth(float backdropStrokeWidth){
+    public void setBackdropStrokeWidth(float backdropStrokeWidth) {
         discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
     }
 
-    public void setThumb(Drawable thumb){
-        if(thumb != null)
+    public void setThumb(Drawable thumb) {
+        if (thumb != null)
             discreteSeekBar.setThumb(thumb);
     }
 
-    public void setProgressDrawable(Drawable progressDrawable){
-        if(progressDrawable != null)
+    public void setProgressDrawable(Drawable progressDrawable) {
+        if (progressDrawable != null)
             discreteSeekBar.setProgressDrawable(progressDrawable);
     }
 
