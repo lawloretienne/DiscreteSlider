@@ -54,7 +54,7 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
     // endregion
 
     // region Helper Methods
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -63,53 +63,78 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser)
-                    fromUserCount+=1;
+                if (fromUser)
+                    fromUserCount += 1;
             }
 
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
                 int oldProgress = seekBar.getProgress();
                 final int newProgress;
-                if((oldProgress % stepSize) >= stepSize/2F){
-                    newProgress = (int)(((oldProgress/(int)stepSize)+1)*stepSize);
+                if ((oldProgress % stepSize) >= stepSize / 2F) {
+                    newProgress = (int) (((oldProgress / (int) stepSize) + 1) * stepSize);
                 } else {
-                    newProgress = (int)(((oldProgress/(int)stepSize))*stepSize);
+                    newProgress = (int) (((oldProgress / (int) stepSize)) * stepSize);
                 }
 
-                if(fromUserCount>1){ // SeekBar Dragged
+                if (fromUserCount > 1) { // SeekBar Dragged
                     ObjectAnimator animation = ObjectAnimator.ofInt(seekBar, PROGRESS_PROPERTY, oldProgress, newProgress);
                     animation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
                     animation.setInterpolator(new DecelerateInterpolator());
                     animation.start();
                 } else { // SeekBar Clicked
-                    ObjectAnimator animation = ObjectAnimator.ofInt(seekBar, PROGRESS_PROPERTY, superOldProgress, newProgress);
-                    animation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
-                    animation.setInterpolator(new DecelerateInterpolator());
-                    animation.start();
+                    doAnimation(seekBar, newProgress);
                 }
 
                 fromUserCount = 0;
-                if(onDiscreteSeekBarChangeListener != null){
-                    onDiscreteSeekBarChangeListener.onPositionChanged(newProgress/MULTIPLIER);
+                if (onDiscreteSeekBarChangeListener != null) {
+                    onDiscreteSeekBarChangeListener.onPositionChanged(newProgress / MULTIPLIER);
                 }
             }
         });
     }
 
-    public void setTickMarkCount(int tickMarkCount) {
-        this.tickMarkCount = tickMarkCount < 2 ? 2 : tickMarkCount;
-        setMax((this.tickMarkCount-1) * MULTIPLIER);
-        this.stepSize = getMax()/(this.tickMarkCount-1);
+    private void doAnimation(SeekBar seekBar, int newProgress) {
+        ObjectAnimator animation = ObjectAnimator.ofInt(seekBar, PROGRESS_PROPERTY, superOldProgress, newProgress);
+        animation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
     }
 
-    public void setOnDiscreteSeekBarChangeListener(OnDiscreteSeekBarChangeListener onDiscreteSeekBarChangeListener){
+    public void setTickMarkCount(int tickMarkCount) {
+        this.tickMarkCount = tickMarkCount < 2 ? 2 : tickMarkCount;
+        setMax((this.tickMarkCount - 1) * MULTIPLIER);
+        this.stepSize = getMax() / (this.tickMarkCount - 1);
+    }
+
+    public void setOnDiscreteSeekBarChangeListener(OnDiscreteSeekBarChangeListener onDiscreteSeekBarChangeListener) {
         this.onDiscreteSeekBarChangeListener = onDiscreteSeekBarChangeListener;
     }
 
-    public void setPosition(int position){
-        this.setProgress(position*(int)stepSize);
+
+    public void setPosition(int position) {
+        int progress = position * (int) stepSize;
+        this.setProgress(progress);
     }
+
+    public void setPositionAnimated(int position) {
+
+        superOldProgress = getProgress();
+
+        int oldProgress = position * (int) stepSize;
+
+        final int newProgress;
+
+        if ((oldProgress % stepSize) >= stepSize / 2F) {
+            newProgress = (int) (((oldProgress / (int) stepSize) + 1) * stepSize);
+        } else {
+            newProgress = (int) (((oldProgress / (int) stepSize)) * stepSize);
+        }
+
+        doAnimation(this, newProgress);
+        this.setProgress(newProgress);
+    }
+
     // endregion
 
 

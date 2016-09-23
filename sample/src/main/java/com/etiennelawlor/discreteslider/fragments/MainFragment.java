@@ -3,6 +3,9 @@ package com.etiennelawlor.discreteslider.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,9 @@ import android.widget.TextView;
 import com.etiennelawlor.discreteslider.R;
 import com.etiennelawlor.discreteslider.library.ui.DiscreteSlider;
 import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +36,10 @@ public class MainFragment extends Fragment {
     DiscreteSlider discreteSlider;
     @Bind(R.id.tick_mark_labels_rl)
     RelativeLayout tickMarkLabelsRelativeLayout;
+    @Bind(R.id.pager)
+    ViewPager viewPager;
+
+    ViewPagerAdapter adapter;
     // endregion
 
     // region Constructors
@@ -56,12 +66,15 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, rootView);
 
+
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        adapter = new ViewPagerAdapter(getFragmentManager());
 
         // Dynamically update attributes
 //        discreteSlider.setTickMarkCount(10);
@@ -78,9 +91,10 @@ public class MainFragment extends Fragment {
             @Override
             public void onPositionChanged(int position) {
                 int childCount = tickMarkLabelsRelativeLayout.getChildCount();
-                for(int i= 0; i<childCount; i++){
+                viewPager.setCurrentItem(position);
+                for (int i = 0; i < childCount; i++) {
                     TextView tv = (TextView) tickMarkLabelsRelativeLayout.getChildAt(i);
-                    if(i == position)
+                    if (i == position)
                         tv.setTextColor(getResources().getColor(R.color.colorPrimary));
                     else
                         tv.setTextColor(getResources().getColor(R.color.grey_400));
@@ -96,6 +110,33 @@ public class MainFragment extends Fragment {
                 addTickMarkTextLabels();
             }
         });
+
+
+        for (int i = 0; i < discreteSlider.getTickMarkCount(); i++) {
+            String pageDescription = "Page " + (i + 1);
+            adapter.addPage(PageFragment.getInstance(pageDescription), pageDescription);
+        }
+
+        viewPager.setAdapter(adapter);
+
+        viewPager.setCurrentItem(discreteSlider.getPosition());
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                discreteSlider.setPositionAnimated(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -107,7 +148,7 @@ public class MainFragment extends Fragment {
 
     // region Helper Methods
 
-    private void addTickMarkTextLabels(){
+    private void addTickMarkTextLabels() {
         int tickMarkCount = discreteSlider.getTickMarkCount();
         float tickMarkRadius = discreteSlider.getTickMarkRadius();
         int width = tickMarkLabelsRelativeLayout.getMeasuredWidth();
@@ -116,37 +157,66 @@ public class MainFragment extends Fragment {
         int discreteSliderBackdropRightMargin = DisplayUtility.dp2px(getContext(), 32);
         float firstTickMarkRadius = tickMarkRadius;
         float lastTickMarkRadius = tickMarkRadius;
-        int interval = (width - (discreteSliderBackdropLeftMargin+discreteSliderBackdropRightMargin) - ((int)(firstTickMarkRadius+lastTickMarkRadius)) )
-                / (tickMarkCount-1);
+        int interval = (width - (discreteSliderBackdropLeftMargin + discreteSliderBackdropRightMargin) - ((int) (firstTickMarkRadius + lastTickMarkRadius)))
+                / (tickMarkCount - 1);
 
-        String[] tickMarkLabels = {"$", "$$", "$$$", "$$$$", "$$$$$"};
         int tickMarkLabelWidth = DisplayUtility.dp2px(getContext(), 40);
 
-        for(int i=0; i<tickMarkCount; i++) {
+        for (int i = 0; i < tickMarkCount; i++) {
             TextView tv = new TextView(getContext());
 
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     tickMarkLabelWidth, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-            tv.setText(tickMarkLabels[i]);
+            tv.setText(adapter.getTitleAt(i));
             tv.setGravity(Gravity.CENTER);
-            if(i==discreteSlider.getPosition())
+            if (i == discreteSlider.getPosition())
                 tv.setTextColor(getResources().getColor(R.color.colorPrimary));
             else
                 tv.setTextColor(getResources().getColor(R.color.grey_400));
 
 //                    tv.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
 
-            int left = discreteSliderBackdropLeftMargin + (int)firstTickMarkRadius + (i * interval) - (tickMarkLabelWidth/2);
+            int left = discreteSliderBackdropLeftMargin + (int) firstTickMarkRadius + (i * interval) - (tickMarkLabelWidth / 2);
 
-            layoutParams.setMargins(left,
-                    0,
-                    0,
-                    0);
+            layoutParams.setMargins(left, 0, 0, 0);
+
             tv.setLayoutParams(layoutParams);
 
             tickMarkLabelsRelativeLayout.addView(tv);
         }
     }
+
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitles = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addPage(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitles.add(title);
+        }
+
+        public String getTitleAt(int position) {
+            return fragmentTitles.get(position);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+    }
+
+
     // endregion
 }
