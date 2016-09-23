@@ -22,7 +22,7 @@ public class DiscreteSeekBar extends AppCompatSeekBar {
     // region Member Variables
     private int tickMarkCount = 0;
     private float stepSize = 0.0f;
-    private int superOldProgress = -1;
+    private int superOldProgress = 0;
     // This counter detects if the user clicked the SeekBar or dragged the SeekBar
     // If this counter exceeds 1 then the user dragged the SeekBar otherwise
     // the user clicked the SeekBar
