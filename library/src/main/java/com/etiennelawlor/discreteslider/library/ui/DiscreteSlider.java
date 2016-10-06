@@ -109,11 +109,14 @@ public class DiscreteSlider extends FrameLayout {
 
     public void setTickMarkCount(int tickMarkCount){
         discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
+        discreteSliderBackdrop.invalidate();
         discreteSeekBar.setTickMarkCount(tickMarkCount);
+        discreteSeekBar.invalidate();
     }
 
     public void setTickMarkRadius(float tickMarkRadius){
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
+        discreteSliderBackdrop.invalidate();
     }
 
     public void setPosition(int position) {
@@ -129,28 +132,36 @@ public class DiscreteSlider extends FrameLayout {
 
     public void setHorizontalBarThickness(float horizontalBarThickness){
         discreteSliderBackdrop.setHorizontalBarThickness(horizontalBarThickness);
+        discreteSliderBackdrop.invalidate();
     }
 
     public void setBackdropFillColor(int backdropFillColor){
         discreteSliderBackdrop.setBackdropFillColor(backdropFillColor);
+        discreteSliderBackdrop.invalidate();
     }
 
     public void setBackdropStrokeColor(int backdropStrokeColor){
         discreteSliderBackdrop.setBackdropStrokeColor(backdropStrokeColor);
+        discreteSliderBackdrop.invalidate();
     }
 
     public void setBackdropStrokeWidth(float backdropStrokeWidth){
         discreteSliderBackdrop.setBackdropStrokeWidth(backdropStrokeWidth);
+        discreteSliderBackdrop.invalidate();
     }
 
     public void setThumb(Drawable thumb){
-        if(thumb != null)
+        if(thumb != null) {
             discreteSeekBar.setThumb(thumb);
+            discreteSeekBar.invalidate();
+        }
     }
 
     public void setProgressDrawable(Drawable progressDrawable){
-        if(progressDrawable != null)
+        if(progressDrawable != null) {
             discreteSeekBar.setProgressDrawable(progressDrawable);
+            discreteSeekBar.invalidate();
+        }
     }
 
     public void setOnDiscreteSliderChangeListener(OnDiscreteSliderChangeListener onDiscreteSliderChangeListener) {
