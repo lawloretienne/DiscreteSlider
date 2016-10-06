@@ -102,12 +102,14 @@ public class DiscreteSlider extends FrameLayout {
             public void onPositionChanged(int position) {
                 if(onDiscreteSliderChangeListener != null){
                     onDiscreteSliderChangeListener.onPositionChanged(position);
+                    setPosition(position);
                 }
             }
         });
     }
 
     public void setTickMarkCount(int tickMarkCount){
+        this.tickMarkCount = tickMarkCount;
         discreteSliderBackdrop.setTickMarkCount(tickMarkCount);
         discreteSliderBackdrop.invalidate();
         discreteSeekBar.setTickMarkCount(tickMarkCount);
@@ -115,6 +117,7 @@ public class DiscreteSlider extends FrameLayout {
     }
 
     public void setTickMarkRadius(float tickMarkRadius){
+        this.tickMarkRadius = tickMarkRadius;
         discreteSliderBackdrop.setTickMarkRadius(tickMarkRadius);
         discreteSliderBackdrop.invalidate();
     }
