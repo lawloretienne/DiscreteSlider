@@ -1,6 +1,10 @@
 # DiscreteSlider [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DiscreteSlider-green.svg?style=true)](https://android-arsenal.com/details/1/3871)
 
+## Overview
+
 A slider that allows a user to select a value at one of the specified tickmarks
+
+## Screenshots
 
 ![DiscreteSlider](https://raw.githubusercontent.com/lawloretienne/DiscreteSlider/master/images/DiscreteSlider_Screenshot4.png)
 
