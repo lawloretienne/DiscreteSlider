@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DiscreteSlider</string>
+
+    <string-array name="labels">
+        <item>Ex 1</item>
+        <item>Ex 2</item>
+        <item>Ex 3</item>
+        <item>Ex 4</item>
+        <item>Ex 5</item>
+    </string-array>
+
 </resources>

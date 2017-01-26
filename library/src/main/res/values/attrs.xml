@@ -10,5 +10,9 @@
         <attr name="backdropStrokeWidth" format="dimension" />
         <attr name="thumb" format="reference" />
         <attr name="progressDrawable" format="reference" />
+
+        <attr name="sliderLables" format="reference"/>
+        <attr name="labelNormalColor" format="color" />
+        <attr name="labelSelectedColor" format="color" />
     </declare-styleable>
 </resources>
