@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.etiennelawlor.discreteslider.R;
+import com.etiennelawlor.discreteslider.library.ui.DiscreteLabelSlider;
 import com.etiennelawlor.discreteslider.library.ui.DiscreteSlider;
 import com.etiennelawlor.discreteslider.library.utilities.DisplayUtility;
 
@@ -27,9 +28,11 @@ import butterknife.OnClick;
 
 public class MainFragment extends Fragment {
 
+    public final String TAG = MainFragment.class.getSimpleName();
+
     // region Views
-    @Bind(R.id.discrete_slider)
-    DiscreteSlider discreteSlider;
+    @Bind(R.id.discreteLbl_slider)
+    DiscreteLabelSlider discreteSlider;
     @Bind(R.id.tick_mark_labels_rl)
     RelativeLayout tickMarkLabelsRelativeLayout;
     // endregion
@@ -76,6 +79,7 @@ public class MainFragment extends Fragment {
 //        discreteSlider.setProgressDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
 
         // Detect when slider position changes
+        /*
         discreteSlider.setOnDiscreteSliderChangeListener(new DiscreteSlider.OnDiscreteSliderChangeListener() {
             @Override
             public void onPositionChanged(int position) {
@@ -98,6 +102,16 @@ public class MainFragment extends Fragment {
                 addTickMarkTextLabels();
             }
         });
+        */
+
+
+
+        discreteSlider.setOnDiscreteSliderChangeListener(new DiscreteLabelSlider.OnDiscreteSliderChangeListener() {
+            @Override
+            public void onPositionChanged(int position) {
+                Log.d(TAG, "onPositionChanged: " + discreteSlider.getLabel(position));
+            }
+        });
     }
 
     @Override
@@ -109,6 +123,7 @@ public class MainFragment extends Fragment {
 
     // region Helper Methods
 
+    /*
     private void addTickMarkTextLabels(){
         int tickMarkCount = discreteSlider.getTickMarkCount();
         float tickMarkRadius = discreteSlider.getTickMarkRadius();
@@ -151,4 +166,11 @@ public class MainFragment extends Fragment {
         }
     }
     // endregion
+    */
+
+    @OnClick(R.id.btnCheckValue)
+    public void checkSliderValue()
+    {
+        Log.d(TAG, "checkSliderValue: " + discreteSlider.getSelectedLabel());
+    }
 }

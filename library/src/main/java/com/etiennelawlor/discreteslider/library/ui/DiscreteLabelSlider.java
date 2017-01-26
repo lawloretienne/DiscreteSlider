@@ -132,11 +132,12 @@ public class DiscreteLabelSlider extends FrameLayout {
             public void onPositionChanged(int position) {
                 if(onDiscreteSliderChangeListener != null){
                     updateLables(position);
-                    onDiscreteSliderChangeListener.onPositionChanged(position);
                     setPosition(position);
+                    onDiscreteSliderChangeListener.onPositionChanged(position);
                 }
                 else {
                     updateLables(position);
+                    setPosition(position);
                 }
             }
         });
@@ -298,5 +299,27 @@ public class DiscreteLabelSlider extends FrameLayout {
             else
                 tv.setTextColor(textNormalColor);
         }
+    }
+
+    public String getSelectedLabel()
+    {
+        if (getPosition() < 0 && getPosition() >= sliderLabels.length)
+            return null;
+
+        return sliderLabels[getPosition()];
+    }
+
+    public String getLabel(int pos)
+    {
+        if (pos < 0 && pos >= sliderLabels.length)
+            return null;
+
+        return sliderLabels[pos];
+    }
+
+    public void setLabelsArray(String[] arr)
+    {
+        sliderLabels = arr;
+        invalidate();
     }
 }

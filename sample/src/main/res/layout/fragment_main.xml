@@ -63,4 +63,10 @@
         app:progressDrawable="@drawable/transparent_progress_drawable"/>
 
 
+    <Button android:id="@+id/btnCheckValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Value"
+        />
+
 </FrameLayout>
