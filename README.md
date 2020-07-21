@@ -1,3 +1,5 @@
+<a href="https://tracking.gitads.io/?repo=DiscreteSlider"><img src="https://images.gitads.io/DiscreteSlider" alt="GitAds"/></a>
+
 # DiscreteSlider [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DiscreteSlider-green.svg?style=true)](https://android-arsenal.com/details/1/3871)
 
 ## Overview
