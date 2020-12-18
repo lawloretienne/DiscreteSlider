@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_gravity="bottom"
         android:background="@color/grey_100">
 
@@ -38,5 +39,34 @@
             app:progressDrawable="@drawable/transparent_progress_drawable"/>
 
     </LinearLayout>
+
+    <com.etiennelawlor.discreteslider.library.ui.DiscreteLabelSlider
+        android:id="@+id/discreteLbl_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@color/grey_100"
+        app:backdropFillColor="@color/grey_200"
+        app:backdropStrokeColor="@color/grey_300"
+        app:backdropStrokeWidth="1dp"
+        app:horizontalBarThickness="4dp"
+        app:tickMarkCount="5"
+        app:tickMarkRadius="8dp"
+        app:position="1"
+        app:thumb="@drawable/thumb"
+        app:sliderLables="@array/labels"
+        app:labelNormalColor="#FF0000"
+        app:labelSelectedColor="#0000FF"
+        app:progressDrawable="@drawable/transparent_progress_drawable"/>
+
+
+    <Button android:id="@+id/btnCheckValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Value"
+        />
 
 </FrameLayout>
